@@ -100,7 +100,7 @@ def train(args):
 
     if args["pretrain"]:
         model = load_model(
-            args["model_path"] + args["model_name"],
+            "edsr.h5",
             custom_objects={"loss": mae, "psnr": psnr},
         )
     else:
@@ -114,7 +114,7 @@ def train(args):
         monitor="loss", factor=0.5, patience=10, verbose=1, min_lr=1e-5
     )
     checkpointer = ModelCheckpoint(
-        args["model_path"] + args["model_name"], verbose=1, save_best_only=True
+        "edsr.h5", verbose=1, save_best_only=True
     )
     tensorboard = TensorBoard(log_dir=args["log_path"])
     callback_list = [lr_decay, checkpointer, tensorboard]
