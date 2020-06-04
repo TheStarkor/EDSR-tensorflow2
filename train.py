@@ -1,11 +1,10 @@
 import numpy as np
-from tensorflow import keras
-from keras.optimizers import Adam, SGD
-from keras.models import load_model
-from keras.callbacks import ModelCheckpoint, ReduceLROnPlateau, TensorBoard
-from keras.utils import multi_gpu_model
-from keras.losses import mean_absolute_error, mean_squared_error
-from keras import backend as K
+from tensorflow.keras.optimizers import Adam, SGD
+from tensorflow.keras.models import load_model
+from tensorflow.keras.callbacks import ModelCheckpoint, ReduceLROnPlateau, TensorBoard
+from tensorflow.keras.utils import multi_gpu_model
+from tensorflow.keras.losses import mean_absolute_error, mean_squared_error
+from tensorflow.keras import backend as K
 import argparse
 import os
 import tensorflow as tf
@@ -86,7 +85,7 @@ def args_parse():
     )
 
     ap.add_argument("-bs", "--batch_size", default=2, type=int, help="batch size")
-    ap.add_argument("-ep", "--epoch", default=30, type=int, help="epoch")
+    ap.add_argument("-ep", "--epoch", default=10, type=int, help="epoch")
     ap.add_argument(
         "-m", "--momentum", default=0.9, type=float, metavar="M", help="momentum"
     )
@@ -122,7 +121,7 @@ def train(args):
 
     optimizers = Adam(lr=1e-4, beta_1=0.9, beta_2=0.99)
 
-    model.compile(loss=mae, metrics=[psnr], optimizers=optimizers)
+    model.compile(loss=mae, metrics=[psnr], optimizer=optimizers)
 
     EDSR = model.fit(
         X_train,
@@ -131,7 +130,7 @@ def train(args):
         batch_size=args["batch_size"],
         epochs=args["epoch"],
         callbacks=callback_list,
-        verbose=1,
+        verbose=2,
     )
 
 

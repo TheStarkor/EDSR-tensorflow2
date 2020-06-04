@@ -4,7 +4,7 @@ import random
 
 IMAGE_WIDTH = 320
 IMAGE_HEIGHT = 480
-CUT_IMAGE_NUM = 10
+CUT_IMAGE_NUM = 5
 FACTOR = 1 / 2
 
 

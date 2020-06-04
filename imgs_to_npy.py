@@ -45,7 +45,7 @@ def args_parse():
     ap.add_argument(
         "-itype",
         "--img_type",
-        default="png",
+        default="jpg",
         required=False,
         help="path to output model",
     )
@@ -75,13 +75,14 @@ def create_train_data(data_path, img_type, rows, cols, label_path, npy_path):
     print("-" * 30)
 
     imgs = glob.glob(data_path+"/*." + img_type)
+    print(len(imgs))
     imgdatas = np.ndarray(
         (len(imgs), (int)(rows / 2), (int)(cols / 2), 3), dtype=np.uint8
     )
     imglabels = np.ndarray((len(imgs), rows, cols, 3), dtype=np.uint8)
 
     for i, imgname in enumerate(imgs):
-        midname = imgname[img.rindex("/") + 1 :]
+        midname = imgname[imgname.rindex("/") + 1 :]
         img = load_img(data_path + "/" + midname)
         img = img_to_array(img)
         label = load_img(label_path + "/" + midname)
