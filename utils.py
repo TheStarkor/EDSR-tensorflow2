@@ -6,5 +6,6 @@ import numpy as np
 def mae(hr, sr):
     return mean_absolute_error(hr, sr)
 
-def psnr(y_true,y_pred):
-    return -10*K.log(K.mean(K.flatten((y_true-y_pred))**2))/np.log(10)
+
+def psnr(y_true, y_pred):
+    return -10 * K.log(K.mean(K.flatten((y_true - y_pred)) ** 2)) / np.log(10)
