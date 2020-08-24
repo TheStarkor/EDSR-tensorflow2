@@ -7,7 +7,7 @@ from utils import mae, psnr
 from model import edsr
 
 
-if __name__ == "__main__":    
+if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("N_TRAIN_DATA", type=int)
     parser.add_argument("N_TEST_DATA", type=int)
@@ -27,13 +27,17 @@ if __name__ == "__main__":
     BATCH_SIZE = args.BATCH_SIZE
     EPOCHS = args.EPOCHS
 
-    train_data_generator = train_data_generator(DATA_DIR, TRAIN_PATH, scale=4.0, batch_size=2)
+    train_data_generator = train_data_generator(
+        DATA_DIR, TRAIN_PATH, scale=4.0, batch_size=2
+    )
 
     test_x, test_y = next(
         test_data_generator(DATA_DIR, TEST_PATH, scale=4.0, batch_size=2, shuffle=False)
     )
 
-    model = edsr(scale=4, num_filters=256, num_res_blocks=N_RES_BLOCK, res_block_scaling=0.1)
+    model = edsr(
+        scale=4, num_filters=256, num_res_blocks=N_RES_BLOCK, res_block_scaling=0.1
+    )
 
     model.summary(line_length=150)
 
