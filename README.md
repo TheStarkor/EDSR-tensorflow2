@@ -23,4 +23,4 @@ EDSR-tensorflow2
 
 ## Sample Results
 trained by Urban100
-![sample]("https://user-images.githubusercontent.com/45455072/91014943-468c4e00-e625-11ea-891e-ed2210184ba7.png")
+![sample](https://user-images.githubusercontent.com/45455072/91014933-40966d00-e625-11ea-801a-9f70ef231586.png)
