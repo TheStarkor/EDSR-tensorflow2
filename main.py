@@ -14,6 +14,7 @@ if __name__ == "__main__":
     parser.add_argument("N_RES_BLOCK", type=int)
     parser.add_argument("BATCH_SIZE", type=int)
     parser.add_argument("EPOCHS", type=int)
+    parser.add_argument("SCALE", type=int)
     args = parser.parse_args()
 
     DATA_DIR = "../src/"
@@ -26,17 +27,18 @@ if __name__ == "__main__":
     N_RES_BLOCK = args.N_RES_BLOCK
     BATCH_SIZE = args.BATCH_SIZE
     EPOCHS = args.EPOCHS
+    SCALE = args.SCALE
 
     train_data_generator = train_data_generator(
-        DATA_DIR, TRAIN_PATH, scale=4.0, batch_size=2
+        DATA_DIR, TRAIN_PATH, scale=float(SCALE), batch_size=2
     )
 
     test_x, test_y = next(
-        test_data_generator(DATA_DIR, TEST_PATH, scale=4.0, batch_size=2, shuffle=False)
+        test_data_generator(DATA_DIR, TEST_PATH, scale=float(SCALE), batch_size=2, shuffle=False)
     )
 
     model = edsr(
-        scale=4, num_filters=256, num_res_blocks=N_RES_BLOCK, res_block_scaling=0.1
+        scale=SCALE, num_filters=256, num_res_blocks=N_RES_BLOCK, res_block_scaling=0.1
     )
 
     model.summary(line_length=150)

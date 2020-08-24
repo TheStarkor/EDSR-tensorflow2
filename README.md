@@ -5,11 +5,11 @@ Tensorflow 2 implementation of [Enhanced Deep Residual Networks for Single Image
 
 ## Usage
 ```
-$ python main.py [-h] N_TRAIN_DATA N_TEST_DATA N_RES_BLOCK BATCH_SIZE EPOCHS
+$ python main.py [-h] N_TRAIN_DATA N_TEST_DATA N_RES_BLOCK BATCH_SIZE EPOCHS SCALE
 ```
 ### DIV2K example
 ```
-$ python main.py 800 100 32 16 200
+$ python main.py 800 100 32 16 200 4
 ```
 ### Prerequisites
 - Python 3.7
