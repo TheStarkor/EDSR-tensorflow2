@@ -27,7 +27,7 @@ EDSR-tensorflow2
 ```
 
 ## Sample Results
-- trained by Urban100
+- trained by Urban100 with 100 epochs and 16 batchs (DIV2K ASAP)
 - test image set is Set14
 
 ### x2
