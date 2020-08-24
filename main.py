@@ -18,7 +18,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     DATA_DIR = "../src/"
-    FILE_PATH = "./models/srcnn_div2k.hdf5"
+    FILE_PATH = "./models/edsr_div2k.hdf5"
     TRAIN_PATH = "DIV2K_train_HR"
     TEST_PATH = "DIV2K_valid_HR"
 
@@ -53,7 +53,7 @@ if __name__ == "__main__":
 
     model.compile(loss=mae, metrics=[psnr], optimizer=optimizers)
 
-    model.fit_generator(
+    model.fit(
         train_data_generator,
         validation_data=(test_x, test_y),
         steps_per_epoch=N_TRAIN_DATA // BATCH_SIZE,
