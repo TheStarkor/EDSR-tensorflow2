@@ -36,22 +36,27 @@ if __name__ == "__main__":
     test_x, test_y = next(
         test_data_generator(DATA_DIR, TEST_PATH, scale=float(SCALE), batch_size=2, shuffle=False)
     )
+    
+    mirrored_strategy = tf.distribute.MirroredStrategy()
 
-    model = edsr(
-        scale=SCALE, num_filters=256, num_res_blocks=N_RES_BLOCK, res_block_scaling=0.1
-    )
+    with mirrored_strategy.scope():
+        model = edsr(
+            scale=SCALE, num_filters=256, num_res_blocks=N_RES_BLOCK, res_block_scaling=0.1
+        )
 
-    model.summary(line_length=150)
+        model.summary(line_length=150)
 
-    lr_decay = ReduceLROnPlateau(
-        monitor="loss", factor=0.5, patience=10, verbose=1, min_lr=1e-5
-    )
-    checkpointer = ModelCheckpoint(FILE_PATH, verbose=1, save_best_only=True)
-    callback_list = [lr_decay, checkpointer]
+        lr_decay = ReduceLROnPlateau(
+            monitor="loss", factor=0.5, patience=10, verbose=1, min_lr=1e-5
+        )
+        checkpointer = ModelCheckpoint(FILE_PATH, verbose=1, save_best_only=True)
+        tensorboard_callback = TensorBoard(log_dir="./logs")
 
-    optimizers = Adam(lr=1e-4, beta_1=0.9, beta_2=0.99)
+        callback_list = [lr_decay, checkpointer, tensorboard_callback]
 
-    model.compile(loss=mae, metrics=[psnr], optimizer=optimizers)
+        optimizers = Adam(lr=1e-4, beta_1=0.9, beta_2=0.99)
+
+        model.compile(loss=mae, metrics=[psnr], optimizer=optimizers)
 
     model.fit(
         train_data_generator,
