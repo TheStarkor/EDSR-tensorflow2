@@ -27,11 +27,10 @@ EDSR-tensorflow2
 ```
 
 ## Sample Results
-- trained by Urban100 with 100 epochs and 16 batchs (DIV2K ASAP)
+- trained by DIV2K
 - test image set is Set14
-
-### x2
-![edsrx2](https://user-images.githubusercontent.com/45455072/91014933-40966d00-e625-11ea-801a-9f70ef231586.png)
-
-### x4
-![edsrx4](https://user-images.githubusercontent.com/45455072/91025377-45165200-e634-11ea-928f-10103a9446b8.png)
+![edsrx4](https://user-images.githubusercontent.com/45455072/91146276-a05a4a00-e6f1-11ea-8d36-3c1235a842d8.png)
+  
+![psnr](https://user-images.githubusercontent.com/45455072/91146286-a6e8c180-e6f1-11ea-85c0-b4f45d953f6e.png)
+  
+![loss](https://user-images.githubusercontent.com/45455072/91146297-a819ee80-e6f1-11ea-9791-1e4e5c07a52c.png)
