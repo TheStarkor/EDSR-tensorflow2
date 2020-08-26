@@ -1,7 +1,9 @@
 from tensorflow.keras.layers import Add, Conv2D, Input, Lambda, Activation
+from tensorflow.keras.optimizers import Adam, SGD
 from tensorflow.keras.models import Model
 import tensorflow as tf
 
+from utils import mae, psnr
 
 def SubpixelConv2D(scale, **kwargs):
     return Lambda(lambda x: tf.nn.depth_to_space(x, scale), **kwargs)
@@ -19,7 +21,12 @@ def edsr(scale, num_filters=64, num_res_blocks=8, res_block_scaling=None):
     x = upsample(x, scale, num_filters)
     x = Conv2D(3, 3, padding="same")(x)
 
-    return Model(x_in, x, name="edsr")
+    model = Model(x_in, x, name="edsr")
+
+    optimizers = Adam(lr=1e-4, beta_1=0.9, beta_2=0.99)
+    model.compile(loss=mae, metrics=[psnr], optimizer=optimizers)
+
+    return model
 
 
 def res_block(x_in, filters, scaling):

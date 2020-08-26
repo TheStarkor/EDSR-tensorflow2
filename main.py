@@ -1,9 +1,7 @@
-from tensorflow.keras.optimizers import Adam, SGD
 from tensorflow.keras.callbacks import ModelCheckpoint, ReduceLROnPlateau, TensorBoard
 import argparse
 
 from data_generator import train_data_generator, test_data_generator
-from utils import mae, psnr
 from model import edsr
 
 
@@ -15,10 +13,11 @@ if __name__ == "__main__":
     parser.add_argument("BATCH_SIZE", type=int)
     parser.add_argument("EPOCHS", type=int)
     parser.add_argument("SCALE", type=int)
+    parser.add_argument("SAVE_NAME", type=str)
     args = parser.parse_args()
 
     DATA_DIR = "../src/"
-    FILE_PATH = "./models/edsr_div2k.hdf5"
+    FILE_PATH = "./models/" + args.SAVE_NAME
     TRAIN_PATH = "DIV2K_train_HR"
     TEST_PATH = "DIV2K_valid_HR"
 
@@ -36,7 +35,7 @@ if __name__ == "__main__":
     test_x, test_y = next(
         test_data_generator(DATA_DIR, TEST_PATH, scale=float(SCALE), batch_size=2, shuffle=False)
     )
-    
+
     model = edsr(
         scale=SCALE, num_filters=256, num_res_blocks=N_RES_BLOCK, res_block_scaling=0.1
     )
@@ -50,10 +49,6 @@ if __name__ == "__main__":
     tensorboard_callback = TensorBoard(log_dir="./logs")
 
     callback_list = [lr_decay, checkpointer, tensorboard_callback]
-
-    optimizers = Adam(lr=1e-4, beta_1=0.9, beta_2=0.99)
-
-    model.compile(loss=mae, metrics=[psnr], optimizer=optimizers)
 
     model.fit(
         train_data_generator,

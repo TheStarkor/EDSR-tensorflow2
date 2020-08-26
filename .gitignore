@@ -132,3 +132,8 @@ train/
 log/
 images/
 edsr.h5
+
+models/
+logs/
+*.png
+*.pb
