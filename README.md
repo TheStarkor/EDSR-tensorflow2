@@ -7,12 +7,12 @@ Most of the existing codes performed data augmentation using matlab, opencv, and
 ## Usage
 ```
 $ mkdir models
-$ main.py [-h] N_TRAIN_DATA N_TEST_DATA N_RES_BLOCK BATCH_SIZE EPOCHS SCALE SAVE_NAME
+$ main.py [-h] TARGET_SIZE N_TRAIN_DATA N_TEST_DATA N_RES_BLOCK BATCH_SIZE EPOCHS SCALE SAVE_NAME
 ```
 ### DIV2K example
 ```
 $ mkdir models
-$ python main.py 800 100 32 16 400 4 edsr_div2k.hdf5
+$ python main.py 240 800 100 32 16 400 4 edsr_div2k.hdf5
 ```
 ### Prerequisites
 - Python 3.7

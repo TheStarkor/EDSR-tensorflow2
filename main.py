@@ -7,6 +7,7 @@ from model import edsr
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
+    parser.add_argument("TARGET_SIZE", type=int)
     parser.add_argument("N_TRAIN_DATA", type=int)
     parser.add_argument("N_TEST_DATA", type=int)
     parser.add_argument("N_RES_BLOCK", type=int)
@@ -21,6 +22,7 @@ if __name__ == "__main__":
     TRAIN_PATH = "DIV2K_train_HR"
     TEST_PATH = "DIV2K_valid_HR"
 
+    TARGET_SIZE = args.TARGET_SIZE
     N_TRAIN_DATA = args.N_TRAIN_DATA
     N_TEST_DATA = args.N_TEST_DATA
     N_RES_BLOCK = args.N_RES_BLOCK
@@ -29,11 +31,11 @@ if __name__ == "__main__":
     SCALE = args.SCALE
 
     train_data_generator = train_data_generator(
-        DATA_DIR, TRAIN_PATH, scale=float(SCALE), batch_size=2
+        DATA_DIR, TRAIN_PATH, scale=float(SCALE), target_size=(TARGET_SIZE, TARGET_SIZE), batch_size=2
     )
 
     test_x, test_y = next(
-        test_data_generator(DATA_DIR, TEST_PATH, scale=float(SCALE), batch_size=2, shuffle=False)
+        test_data_generator(DATA_DIR, TEST_PATH, scale=float(SCALE), target_size=(TARGET_SIZE, TARGET_SIZE), batch_size=2, shuffle=False)
     )
 
     model = edsr(
